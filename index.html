@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scratch Off!</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
+        
+        body{
+            font-family: 'Irish Grover', cursive;
+            color: #513630;
+        }
+
+        #scratchCanvas{
+            border: 5px solid #FFD56A;
+            width: 1000px;
+            height: 1000px;
+            background-color: #FFD56A;
+            position: fixed;
+            top: 150px;
+            z-index: 1;
+        }
+
+        #emojiCanvas{
+            position: fixed;
+            top: 150px;
+            z-index: -10;
+        }
+
+        #count{
+            color: #FF5117;
+        }
+
+    </style>
+
+</head>
+<body>
+    <h1>Scratch Off!</h1>
+    <p>Let&#39;s see what you can get by scratching off</p>
+    <div id="count">count: <div id="countnum"></div></div>
+    
+    <canvas id="scratchCanvas" width="1000" height="1000"></canvas>
+    <canvas id="emojiCanvas" width="1000" height="1000"></canvas>
+
+
+    <script>
+        const emojiCanvas = document.getElementById("emojiCanvas");
+        const emojiContext = emojiCanvas.getContext("2d");
+
+        const size = 20;
+        const factor = 2;
+
+        function loadEmoji() {
+            emojiContext.clearRect(0, 0, emojiCanvas.width, emojiCanvas.height);
+            
+            emojiContext.font = `${size * (factor - 0.5)}px Arial`;
+            // emojiContext.textBaseline = 'middle';
+            // emojiContext.textAlign = 'center';
+
+            for (let i = 0; i <= 100; i++) {
+                const x = size;
+                const y = size + (i * size * factor);
+
+                const emos = Math.floor(Math.random() * (127899 - 127744 + 1) + 127744);
+                const emoji = String.fromCodePoint(emos);
+
+                emojiContext.fillText(emoji, x, y);
+            }
+        }
+
+        window.onload = function() {
+            loadEmoji();
+        };
+
+        var scratchCanvas = document.getElementById("scratchCanvas");
+        var scratchContext = scratchCanvas.getContext("2d");
+
+        let x = null;
+        let y = null;
+        let previousX = null;
+        let previousY = null;
+        let distance = 0;
+
+        scratchCanvas.addEventListener('mousemove', function(event) {
+            let rect = scratchCanvas.getBoundingClientRect();
+            previousX = x;
+            previousY = y;
+            x = event.clientX - rect.left;
+            y = event.clientY - rect.top;
+
+            if (previousX != null) {
+                let distanceX = Math.round(x - previousX);
+                if (distanceX < 0) distanceX *= -1;
+
+                let distanceY = Math.round(y - previousY);
+                if (distanceY < 0) distanceY *= -1;
+
+                distance = Math.hypot(distanceX, distanceY);
+
+                // Clear a corresponding area on the emoji canvas
+                scratchContext.globalCompositeOperation = "destination-out";
+                scratchContext.beginPath();
+                scratchContext.arc(x, y, distance, 0, 2 * Math.PI);
+                scratchContext.fill();
+                scratchContext.globalCompositeOperation = "source-over"; // Restore the default composite operation
+
+                // Draw the scratch line
+                scratchContext.beginPath();
+                scratchContext.lineWidth = 30;
+                scratchContext.lineCap = "round";
+                scratchContext.moveTo(previousX, previousY);
+                scratchContext.lineTo(x, y);
+                scratchContext.strokeStyle = "rgba(255, 255, 255, 0.2)";
+                scratchContext.stroke();
+            }
+        });
+
+        scratchCanvas.addEventListener('mouseleave', function() {
+            // Clear the scratch canvas when the mouse leaves
+            scratchContext.clearRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+        });
+
+
+
+    </script>
+
+</body>
+</html>
