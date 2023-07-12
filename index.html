@@ -27,7 +27,7 @@
         #emojiCanvas{
             position: fixed;
             top: 150px;
-            z-index: -10;
+            z-index: -1;
         }
 
         #count{
@@ -50,19 +50,17 @@
         const emojiCanvas = document.getElementById("emojiCanvas");
         const emojiContext = emojiCanvas.getContext("2d");
 
-        const size = 20;
-        const factor = 2;
+        // const size = 20;
+        // const factor = 2;
 
         function loadEmoji() {
             emojiContext.clearRect(0, 0, emojiCanvas.width, emojiCanvas.height);
             
-            emojiContext.font = `${size * (factor - 0.5)}px Arial`;
-            // emojiContext.textBaseline = 'middle';
-            // emojiContext.textAlign = 'center';
+            //emojiContext.font = `${size * (factor - 0.5)}px Arial`;
 
             for (let i = 0; i <= 100; i++) {
-                const x = size;
-                const y = size + (i * size * factor);
+                const x = Math.floor(Math.random() * 1000) + 1;
+                const y = Math.floor(Math.random() * 1000) + 1;
 
                 const emos = Math.floor(Math.random() * (127899 - 127744 + 1) + 127744);
                 const emoji = String.fromCodePoint(emos);
@@ -108,13 +106,13 @@
                 scratchContext.globalCompositeOperation = "source-over"; // Restore the default composite operation
 
                 // Draw the scratch line
-                scratchContext.beginPath();
-                scratchContext.lineWidth = 30;
-                scratchContext.lineCap = "round";
-                scratchContext.moveTo(previousX, previousY);
-                scratchContext.lineTo(x, y);
-                scratchContext.strokeStyle = "rgba(255, 255, 255, 0.2)";
-                scratchContext.stroke();
+                // scratchContext.beginPath();
+                // scratchContext.lineWidth = 30;
+                // scratchContext.lineCap = "round";
+                // scratchContext.moveTo(previousX, previousY);
+                // scratchContext.lineTo(x, y);
+                // scratchContext.strokeStyle = "rgba(255, 255, 255, 0.2)";
+                // scratchContext.stroke();
             }
         });
 
@@ -122,8 +120,6 @@
             // Clear the scratch canvas when the mouse leaves
             scratchContext.clearRect(0, 0, scratchCanvas.width, scratchCanvas.height);
         });
-
-
 
     </script>
 
