@@ -14,11 +14,10 @@
             color: #513630;
         }
 
-        #myCanvas{
+        #scratchCanvas{
             border: 5px solid #FFD56A;
             width: 500px;
             height: 500px;
-            /* background-color: #FFD56A; */
             position: fixed;
             top: 150px;
             z-index: 1;
@@ -42,26 +41,20 @@
     <p>Let&#39;s see what you can get by scratching off</p>
     <div id="count">count: <div id="countnum"></div></div>
     
-    <canvas id="myCanvas" width="500" height="500"></canvas>
-    <!-- <canvas id="scratchCanvas" width="1000" height="1000"></canvas> -->
-    <canvas id="emojiCanvas" width="1000" height="1000"></canvas>
+    <canvas id="scratchCanvas" width="500" height="500"></canvas>
+    <canvas id="emojiCanvas" width="500" height="500"></canvas>
 
 
     <script>
         const emojiCanvas = document.getElementById("emojiCanvas");
         const emojiContext = emojiCanvas.getContext("2d");
 
-        // const size = 20;
-        // const factor = 2;
-
         function loadEmoji() {
             emojiContext.clearRect(0, 0, emojiCanvas.width, emojiCanvas.height);
-            
-            //emojiContext.font = `${size * (factor - 0.5)}px Arial`;
 
             for (let i = 0; i <= 100; i++) {
-                const x = Math.floor(Math.random() * 1000) + 1;
-                const y = Math.floor(Math.random() * 1000) + 1;
+                const x = Math.floor(Math.random() * 500) + 1;
+                const y = Math.floor(Math.random() * 500) + 1;
 
                 const emos = Math.floor(Math.random() * (127899 - 127744 + 1) + 127744);
                 const emoji = String.fromCodePoint(emos);
@@ -75,62 +68,48 @@
         };
 
 
+        var scratchCanvas = document.getElementById("scratchCanvas");
+        var scratchContext = scratchCanvas.getContext("2d");
 
-        const canvas = document.getElementById("myCanvas");
-        const ctx = canvas.getContext("2d");
-
-        ctx.fillStyle = "#FFD56A";
-        ctx.fillRect(0, 0, 500, 500);
-        ctx.clearRect(40, 40, 50, 50);
-        ctx.clearRect(50, 50, 50, 50);
-        ctx.clearRect(100, 200, 50, 50);
-        ctx.clearRect(200, 250, 50, 50);
-
-        // var scratchCanvas = document.getElementById("scratchCanvas");
-        // var scratchContext = scratchCanvas.getContext("2d");
-
-        // let x = null;
-        // let y = null;
-        // let previousX = null;
-        // let previousY = null;
-        // let distance = 0;
+        scratchContext.fillStyle = "#FFD56A";
+        scratchContext.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
 
 
-        // scratchCanvas.addEventListener('mousemove', function(event) {
-        //     let rect = scratchCanvas.getBoundingClientRect();
-        //     previousX = x;
-        //     previousY = y;
-        //     x = event.clientX - rect.left;
-        //     y = event.clientY - rect.top;
+        let x = null;
+        let y = null;
+        let previousX = null;
+        let previousY = null;
+        let distance = 0;
 
-        //     if (previousX != null) {
-        //         let distanceX = Math.round(x - previousX);
-        //         if (distanceX < 0) distanceX *= -1;
+        scratchCanvas.addEventListener('mousemove', function(event){
+            // adjusting the mouse position with the browser position
+                let rect = scratchCanvas.getBoundingClientRect();
 
-        //         let distanceY = Math.round(y - previousY);
-        //         if (distanceY < 0) distanceY *= -1;
+            previousX = x;
+            previousY = y;
 
-        //         distance = Math.hypot(distanceX, distanceY);
+            x = event.clientX - rect.left;
+            y = event.clientY - rect.top;
 
-        //         // Clear a corresponding area on the emoji canvas
-        //         scratchContext.globalCompositeOperation = "destination-out";
-        //         scratchContext.beginPath();
-        //         scratchContext.arc(x, y, distance, 0, 2 * Math.PI);
-        //         scratchContext.fill();
-        //         scratchContext.globalCompositeOperation = "source-over"; // Restore the default composite operation
+            if(previousX != null){
 
-        //         // Draw the scratch line
-        //         scratchContext.beginPath();
-        //         scratchContext.lineWidth = 30;
-        //         scratchContext.lineCap = "round";
-        //         scratchContext.moveTo(previousX, previousY);
-        //         scratchContext.lineTo(x, y);
-        //         scratchContext.strokeStyle = "rgba(255,255,255)";
-        //         scratchContext.stroke();
-        //         scratchContext.clearRect();
-        //     }
-        // });
+                let distanceX = Math.round(x - previousX);
+                if (distanceX < 0) distanceX *= -1;
+    
+                let distanceY = Math.round(y - previousY);
+                if (distanceY < 0) distanceY *= -1;
+    
+                distance = Math.hypot(distanceX, distanceY);
 
+                scratchContext.beginPath();
+
+                scratchContext.lineWidth = 1;
+                scratchContext.clearRect(x, y, distance, distance)
+            
+           }
+        });
+
+ 
         // scratchCanvas.addEventListener('mouseleave', function() {
         //     // Clear the scratch canvas when the mouse leaves
         //     scratchContext.clearRect(0, 0, scratchCanvas.width, scratchCanvas.height);
