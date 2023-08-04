@@ -9,28 +9,35 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
         
+        :root{
+            --pri-color: #FFD56A;
+            --sec-color: #FF5117;
+            --font-color: #513630;
+        }
+
         body{
             font-family: 'Irish Grover', cursive;
-            color: #513630;
+            color: var(--font-color);
+            padding: 0.5em;
         }
 
         #scratchCanvas{
-            border: 5px solid #FFD56A;
+            border: 5px solid var(--pri-color);
             width: 500px;
             height: 500px;
             position: fixed;
-            top: 150px;
+            top: 200px;
             z-index: 1;
         }
 
         #emojiCanvas{
             position: fixed;
-            top: 150px;
+            top: 200px;
             z-index: -1;
         }
 
         #count{
-            color: #FF5117;
+            color: var(--sec-color);
         }
 
     </style>
