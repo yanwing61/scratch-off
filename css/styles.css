@@ -18,8 +18,10 @@ a{
 
 #scratchCanvas, #emojiCanvas{
     position: fixed;
-    top: 40%;
-    left: calc(50% - 250px);
+    top: 30vh;
+    left: calc(50% - 30vw);
+    height: 60vh;
+    width: 60vw;
 }
 
 #scratchCanvas{
@@ -33,7 +35,7 @@ a{
 #count{
     color: var(--sec-color);
     font-size: 1.5em;
-    padding-left: calc(50% - 250px);
+    padding-left: calc(50% - 30vw);
     display: none;
 }
 
@@ -42,7 +44,7 @@ a{
 }
 
 .congrats{
-    animation: congrats 1s infinite;
+    animation: congrats 1s 3 forwards;
 }
 
 @keyframes congrats{
@@ -57,13 +59,13 @@ a{
 
 /* BUTTONS */
 #bgColor, #reset {
-    background-color:var(--pri-color);
-    border-radius:10px;
+    background-color: var(--pri-color);
+    border-radius: 10px;
     padding: 0.5em 1em;
-    border:0;
-    box-shadow:0 10px 0 gray;
-    margin-bottom:1em;
-    transition:all 0.5s;
+    border: 0;
+    box-shadow: 0 5px 0 gray;
+    margin-bottom: 2em;
+    transition: all 0.5s;
     overflow: hidden;
     font-size: 1em;
     font-family:  'Irish Grover', cursive;
@@ -84,4 +86,26 @@ a{
 footer{
     position: fixed;
     top: 95%;
+}
+
+@media screen and (max-width: 600px) {
+    #scratchCanvas, #emojiCanvas{
+        position: fixed;
+        top: 40%;
+        left: 0;
+        height: 50vh;
+        width: 100vw;
+    }
+
+    #count{
+        font-size: 1em;
+        padding-left: calc(50% - 50vw);
+    }
+
+    #bgColor, #reset {
+        border-radius: 5px;
+        padding: 0.25em 0.5em;
+        font-size: 0.75em;
+    }
+    
 }

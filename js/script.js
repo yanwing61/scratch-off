@@ -11,8 +11,8 @@ function loadEmoji() {
 
     for (var i = 0; i <= emojiTotal; i++) {
         //generate random position
-        var x = Math.floor(Math.random() * 500) + 1;
-        var y = Math.floor(Math.random() * 500) + 1;
+        var x = Math.floor(Math.random() * emojiCanvas.width) + 1;
+        var y = Math.floor(Math.random() * emojiCanvas.height) + 1;
 
         //generate a random emoji
         var emos = Math.floor(Math.random() * (127891 - 127744 + 1) + 127744);
