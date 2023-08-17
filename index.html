@@ -21,6 +21,10 @@
             padding: 2em;
         }
 
+        a{
+            text-decoration: none;
+        }
+
         #scratchCanvas, #emojiCanvas{
             position: fixed;
             top: 30%;
@@ -28,8 +32,6 @@
         }
 
         #scratchCanvas{
-            width: 500px;
-            height: 500px;
             z-index: 1;
         }
 
@@ -65,31 +67,43 @@
             
         }
 
-
         #bgColor:active, #reset:active {
             box-shadow: 0 0 0 gray;
             transform: translateY(10px);
+        }
+
+        footer{
+            position: fixed;
+            top: 95%;
+            left: 5%;
         }
 
     </style>
 
 </head>
 <body>
-    <h1>Scratch Off!</h1>
-    <button id="reset">Reset</button>
 
-    <p>Let&#39;s see what you can get by scratching off.</p>
-    
-    
-    <button id="bgColor" onclick="pickColor()">Pick a background color</button>
-    
-    <div id="count">count: <div id="countnum"></div></div>
-    <canvas id="scratchCanvas" width="500" height="500"></canvas>
-    <canvas id="emojiCanvas" width="500" height="500"></canvas>
-    
+    <header>
+        <a href="https://ywpang.com"> &#8672; Back</a>
+        <h1>Scratch Off!</h1>
+        <button id="reset">Reset</button>
+    </header>
+
+    <main>
+        <p>Let&#39;s see what you can get by scratching off.</p>
+        
+        <button id="bgColor" onclick="pickColor()">Pick a background color</button>
+        
+        <div id="count">count: <div id="countnum"></div></div>
+        <canvas id="scratchCanvas" width="500" height="500"></canvas>
+        <canvas id="emojiCanvas" width="500" height="500"></canvas>
+    </main>
+
+    <footer>
+        <div id="copyright">&copy; Copyright Yan Wing Pang, 2023.</div>
+      </footer>
 
     <script>
-
 
         const emojiCanvas = document.getElementById("emojiCanvas");
         const emojiContext = emojiCanvas.getContext("2d");
@@ -98,12 +112,16 @@
             emojiContext.clearRect(0, 0, emojiCanvas.width, emojiCanvas.height);
 
             for (let i = 0; i <= 100; i++) {
-                const x = Math.floor(Math.random() * 500) + 1;
-                const y = Math.floor(Math.random() * 500) + 1;
+                var x = Math.floor(Math.random() * 500) + 1;
+                var y = Math.floor(Math.random() * 500) + 1;
 
-                const emos = Math.floor(Math.random() * (127899 - 127744 + 1) + 127744);
-                const emoji = String.fromCodePoint(emos);
+                var emos = Math.floor(Math.random() * (127891 - 127744 + 1) + 127744);
 
+                while (emos === 127778 || emos === 127779) {
+                    emos = Math.floor(Math.random() * (127891 - 127744 + 1) + 127744);
+                }
+                    var emoji = String.fromCodePoint(emos);
+                
                 emojiContext.fillText(emoji, x, y);
             }
         }
@@ -165,11 +183,11 @@
 
                 scratchContext.lineWidth = 1;
                 scratchContext.clearRect(x, y, distance, distance)
-            
            }
         });
 
         var emoji = /^\p{RGI_Emoji}$/v;
+
 
         
         // Reload the page
