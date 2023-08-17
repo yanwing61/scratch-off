@@ -35,6 +35,8 @@ a{
 #count{
     color: var(--sec-color);
     font-size: 1.5em;
+    position: fixed;
+    top: 1em;
     padding-left: calc(50% - 30vw);
     display: none;
 }
@@ -99,7 +101,6 @@ footer{
 
     #count{
         font-size: 1em;
-        padding-left: calc(50% - 50vw);
     }
 
     #bgColor, #reset {
