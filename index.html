@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
     <title>Scratch Off!</title>
 
     <style>
@@ -18,26 +18,57 @@
         body{
             font-family: 'Irish Grover', cursive;
             color: var(--font-color);
-            padding: 0.5em;
+            padding: 2em;
+        }
+
+        #scratchCanvas, #emojiCanvas{
+            position: fixed;
+            top: 30%;
+            left: calc(50% - 250px);
         }
 
         #scratchCanvas{
-            border: 5px solid var(--pri-color);
             width: 500px;
             height: 500px;
-            position: fixed;
-            top: 200px;
             z-index: 1;
         }
 
         #emojiCanvas{
-            position: fixed;
-            top: 200px;
             z-index: -1;
         }
 
         #count{
             color: var(--sec-color);
+            position: fixed;
+            top: 25%;
+        }
+
+        /* BUTTONS */
+        #bgColor, #reset {
+            background-color:var(--pri-color);
+            border-radius:10px;
+            padding: 0.5em 1em;
+            border:0;
+            box-shadow:0 10px 0 gray;
+            margin-bottom:1em;
+            position: fixed;
+            transition:all 0.5s;
+            overflow: hidden;
+            font-size: 1em;
+            font-family:  'Irish Grover', cursive;
+            color: var(--font-color);
+        }
+        
+        #reset {
+            left: calc(100% - 6em);
+            top: 30px;
+            
+        }
+
+
+        #bgColor:active, #reset:active {
+            box-shadow: 0 0 0 gray;
+            transform: translateY(10px);
         }
 
     </style>
@@ -45,14 +76,21 @@
 </head>
 <body>
     <h1>Scratch Off!</h1>
-    <p>Let&#39;s see what you can get by scratching off</p>
-    <div id="count">count: <div id="countnum"></div></div>
+    <button id="reset">Reset</button>
+
+    <p>Let&#39;s see what you can get by scratching off.</p>
     
+    
+    <button id="bgColor" onclick="pickColor()">Pick a background color</button>
+    
+    <div id="count">count: <div id="countnum"></div></div>
     <canvas id="scratchCanvas" width="500" height="500"></canvas>
     <canvas id="emojiCanvas" width="500" height="500"></canvas>
-
+    
 
     <script>
+
+
         const emojiCanvas = document.getElementById("emojiCanvas");
         const emojiContext = emojiCanvas.getContext("2d");
 
@@ -80,6 +118,21 @@
 
         scratchContext.fillStyle = "#FFD56A";
         scratchContext.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+
+        function pickColor() {
+            var colorPicker = document.createElement('input');
+            colorPicker.type = 'color';
+            colorPicker.addEventListener('change', function() {
+                setColor(colorPicker.value);
+            });
+            colorPicker.click();
+        }
+
+        function setColor(color) {
+            // fill the canvas with the chosen color
+            scratchContext.fillStyle = color;
+            scratchContext.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+        }
 
 
         let x = null;
@@ -116,7 +169,16 @@
            }
         });
 
- 
+        var emoji = /^\p{RGI_Emoji}$/v;
+
+        
+        // Reload the page
+        var reset = document.getElementById("reset");
+        
+        reset.addEventListener('click', function() {
+            location.reload(); 
+        });
+
         // scratchCanvas.addEventListener('mouseleave', function() {
         //     // Clear the scratch canvas when the mouse leaves
         //     scratchContext.clearRect(0, 0, scratchCanvas.width, scratchCanvas.height);
