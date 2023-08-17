@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
+
+:root{
+    --pri-color: #FFD56A;
+    --sec-color: #FF5117;
+    --font-color: #513630;
+}
+
+body{
+    font-family: 'Irish Grover', cursive;
+    color: var(--font-color);
+    padding: 2em;
+}
+
+a{
+    text-decoration: none;
+}
+
+#scratchCanvas, #emojiCanvas{
+    position: fixed;
+    top: 40%;
+    left: calc(50% - 250px);
+}
+
+#scratchCanvas{
+    z-index: 1;
+}
+
+#emojiCanvas{
+    z-index: -1;
+}
+
+#count{
+    color: var(--sec-color);
+    font-size: 1.5em;
+    padding-left: calc(50% - 250px);
+    display: none;
+}
+
+#countnum {
+    display: inline;
+}
+
+.congrats{
+    animation: congrats 1s infinite;
+}
+
+@keyframes congrats{
+    0%{
+      transform: scale(1);
+    }
+  
+    100%{
+      transform: scale(1.2);
+    }
+}
+
+/* BUTTONS */
+#bgColor, #reset {
+    background-color:var(--pri-color);
+    border-radius:10px;
+    padding: 0.5em 1em;
+    border:0;
+    box-shadow:0 10px 0 gray;
+    margin-bottom:1em;
+    transition:all 0.5s;
+    overflow: hidden;
+    font-size: 1em;
+    font-family:  'Irish Grover', cursive;
+    color: var(--font-color);
+}
+
+#reset {
+    position: fixed;
+    left: calc(100% - 6em);
+    top: 10%;
+}
+
+#bgColor:active, #reset:active {
+    box-shadow: 0 0 0 gray;
+    transform: translateY(10px);
+}
+
+footer{
+    position: fixed;
+    top: 95%;
+}
