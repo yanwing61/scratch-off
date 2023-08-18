@@ -20,8 +20,9 @@ a{
     position: fixed;
     top: 30vh;
     left: calc(50% - 30vw);
-    height: 60vh;
-    width: 60vw;
+    height: 500px;
+    width: 500px;
+    display: none;
 }
 
 #scratchCanvas{
@@ -93,7 +94,7 @@ footer{
 @media screen and (max-width: 600px) {
     #scratchCanvas, #emojiCanvas{
         position: fixed;
-        top: 40%;
+        top: 35%;
         left: 0;
         height: 50vh;
         width: 100vw;

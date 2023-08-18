@@ -1,7 +1,7 @@
 var emojiCanvas = document.getElementById("emojiCanvas");
 var emojiContext = emojiCanvas.getContext("2d");
 var emojisDrawn = [];
-var emojiTotal = 100;
+var emojiTotal = Math.floor(Math.random() * (200 - 100 + 1) + 100);
 var emojiCount = document.getElementById("countnum");
 var countDiv = document.getElementById("count");
 
@@ -59,6 +59,8 @@ function setColor(color) {
     scratchContext.fillStyle = color;
     scratchContext.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
     countDiv.style.display = "block";
+    emojiCanvas.style.display = "block";
+    scratchCanvas.style.display = "block";
 }
 
 
