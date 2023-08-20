@@ -1,7 +1,7 @@
 var emojiCanvas = document.getElementById("emojiCanvas");
 var emojiContext = emojiCanvas.getContext("2d");
 var emojisDrawn = [];
-var emojiTotal = Math.floor(Math.random() * (200 - 100 + 1) + 100);
+var emojiTotal = Math.floor(Math.random() * (50 - 10 + 1) + 10);
 var emojiCount = document.getElementById("countnum");
 var countDiv = document.getElementById("count");
 

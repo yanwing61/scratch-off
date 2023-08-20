@@ -16,6 +16,10 @@ a{
     text-decoration: none;
 }
 
+p{
+    font-size: 1.5em;
+}
+
 #scratchCanvas, #emojiCanvas{
     position: fixed;
     top: 30vh;
